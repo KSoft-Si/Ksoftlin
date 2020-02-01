@@ -136,7 +136,7 @@ class ImageEndpoint(private val token: String) {
         )
     }
 
-    fun getRandomImageFromSubReddit(subReddit: String, removeNsfw: Boolean = false, span: String = "day"): RedditPost {
+    fun getRandomImageFromSubReddit(subReddit: String, removeNsfw: Boolean = true, span: String = "day"): RedditPost {
         val req = Request.Builder().url("$url/rand-reddit/$subReddit?remove_nsfw=$removeNsfw&span=$span")
             .header("Authorization", "Bearer $token").build()
         var data: JsonObject? = null
