@@ -1,7 +1,7 @@
-package club.chachy.ksoftlin.dsl
+package si.ksoft.ksoftlin.dsl
 
-import club.chachy.ksoftlin.KsoftApi
-import club.chachy.ksoftlin.exceptions.AuthenticationErrorException
+import si.ksoft.ksoftlin.KsoftApi
+import si.ksoft.ksoftlin.exceptions.AuthenticationErrorException
 
 class Settings {
     var token: String? = null

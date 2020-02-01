@@ -1,10 +1,11 @@
-package club.chachy.ksoftlin.endpoints
+package si.ksoft.ksoftlin.endpoints
 
 import club.chachy.ksoftlin.data.*
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import si.ksoft.ksoftlin.data.*
 
 class LyricsEndpoint(private val token: String) {
     private val url = "https://api.ksoft.si/lyrics"
@@ -55,7 +56,12 @@ class LyricsEndpoint(private val token: String) {
         val albums = mutableListOf<Artist>()
         val tracks = mutableListOf<Track>()
         for (t in data!!["tracks"].asJsonArray) {
-            tracks.add(Track(t.asJsonObject["id"].asInt, t.asJsonObject["name"].asString))
+            tracks.add(
+                Track(
+                    t.asJsonObject["id"].asInt,
+                    t.asJsonObject["name"].asString
+                )
+            )
         }
         for (a in data["albums"].asJsonArray) {
             albums.add(
@@ -66,7 +72,13 @@ class LyricsEndpoint(private val token: String) {
                 )
             )
         }
-        return Artist(data["id"].asInt, data["name"].asString, 0, albums, tracks)
+        return Artist(
+            data["id"].asInt,
+            data["name"].asString,
+            0,
+            albums,
+            tracks
+        )
     }
 
     fun getAlbumByID(id: Int): Album {
@@ -80,12 +92,28 @@ class LyricsEndpoint(private val token: String) {
         val artists = mutableListOf<Artist>()
         val tracks = mutableListOf<Track>()
         for (a in data!!["artist"].asJsonArray) {
-            artists.add(Artist(a.asJsonObject["id"].asInt, a.asJsonObject["name"].asString))
+            artists.add(
+                Artist(
+                    a.asJsonObject["id"].asInt,
+                    a.asJsonObject["name"].asString
+                )
+            )
         }
         for (t in data["artist"].asJsonArray) {
-            tracks.add(Track(t.asJsonObject["id"].asInt, t.asJsonObject["name"].asString))
+            tracks.add(
+                Track(
+                    t.asJsonObject["id"].asInt,
+                    t.asJsonObject["name"].asString
+                )
+            )
         }
-        return Album(data["id"].asInt, data["name"].asString, data["year"].asInt, artists, tracks)
+        return Album(
+            data["id"].asInt,
+            data["name"].asString,
+            data["year"].asInt,
+            artists,
+            tracks
+        )
     }
 
     fun getTrackByID(id: Int): RetrievedTrack {
@@ -108,7 +136,10 @@ class LyricsEndpoint(private val token: String) {
         }
         return RetrievedTrack(
             data["name"].asString,
-            Artist(data["artist"].asJsonObject["id"].asInt, data["artist"].asJsonObject["name"].asString),
+            Artist(
+                data["artist"].asJsonObject["id"].asInt,
+                data["artist"].asJsonObject["name"].asString
+            ),
             albums,
             data["lyrics"].asString
         )

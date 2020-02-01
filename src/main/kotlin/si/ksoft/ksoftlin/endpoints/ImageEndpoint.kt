@@ -1,9 +1,9 @@
-package club.chachy.ksoftlin.endpoints
+package si.ksoft.ksoftlin.endpoints
 
-import club.chachy.ksoftlin.data.Image
-import club.chachy.ksoftlin.data.RedditPost
-import club.chachy.ksoftlin.data.Tag
-import club.chachy.ksoftlin.data.WikihowImage
+import si.ksoft.ksoftlin.data.Image
+import si.ksoft.ksoftlin.data.RedditPost
+import si.ksoft.ksoftlin.data.Tag
+import si.ksoft.ksoftlin.data.WikihowImage
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import okhttp3.OkHttpClient

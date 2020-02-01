@@ -1,4 +1,4 @@
-package club.chachy.ksoftlin.data
+package si.ksoft.ksoftlin.data
 
 data class Image(val url: String, val snowflake: String, val isNsfw: Boolean, val tag: String)
 
