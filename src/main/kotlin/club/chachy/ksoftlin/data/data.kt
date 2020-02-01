@@ -6,7 +6,20 @@ data class WikihowImage(val url: String, val title: String, val nsfw: Boolean, v
 
 data class Tag(val name: String, val isNsfw: Boolean, val tags: MutableList<String>)
 
-data class Song(val artist: String, val artistId: Int, val album: String, val albumIds: String, val albumYear: String, val name: String, val lyrics: String, val searchString: String, val albumArt: String, val popularity: Int, val id: String, val searchScore: Double)
+data class Song(
+    val artist: String,
+    val artistId: Int,
+    val album: String,
+    val albumIds: String,
+    val albumYear: String,
+    val name: String,
+    val lyrics: String,
+    val searchString: String,
+    val albumArt: String,
+    val popularity: Int,
+    val id: String,
+    val searchScore: Double
+)
 
 data class Track(val id: Int, val name: String)
 

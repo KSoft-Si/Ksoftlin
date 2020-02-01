@@ -31,51 +31,51 @@ class ImageEndpoint(private val token: String) {
         )
     }
 
-     fun getTags(): MutableList<String> {
-         val list = mutableListOf<String>()
-         val req = Request.Builder().url("$url/tags").header("Authorization", "Bearer $token").build()
-         var data: JsonObject? = null
-         try {
-             data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
-         } catch (e: Exception) {
-             e.printStackTrace()
-         }
-         for (tag in data!!["tags"].asJsonArray) {
-             list.add(tag.asString)
-         }
-         return list
-     }
+    fun getTags(): MutableList<String> {
+        val list = mutableListOf<String>()
+        val req = Request.Builder().url("$url/tags").header("Authorization", "Bearer $token").build()
+        var data: JsonObject? = null
+        try {
+            data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        for (tag in data!!["tags"].asJsonArray) {
+            list.add(tag.asString)
+        }
+        return list
+    }
 
-     fun isTagNSFW(tag: String): Boolean {
-         val req = Request.Builder().url("$url/tags").header("Authorization", "Bearer $token").build()
-         var data: JsonObject? = null
-         try {
-             data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
-         } catch (e: Exception) {
-             e.printStackTrace()
-         }
-         for (`object` in data!!["models"].asJsonArray) {
-             if (`object`.asJsonObject["name"].asString == tag) {
-                 return `object`.asJsonObject["nsfw"].asBoolean
-             }
-         }
-         return false
-     }
+    fun isTagNSFW(tag: String): Boolean {
+        val req = Request.Builder().url("$url/tags").header("Authorization", "Bearer $token").build()
+        var data: JsonObject? = null
+        try {
+            data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        for (`object` in data!!["models"].asJsonArray) {
+            if (`object`.asJsonObject["name"].asString == tag) {
+                return `object`.asJsonObject["nsfw"].asBoolean
+            }
+        }
+        return false
+    }
 
-     fun getNSFWTags(): MutableList<String> {
-         val list = mutableListOf<String>()
-         val req = Request.Builder().url("$url/tags").header("Authorization", "Bearer $token").build()
-         var data: JsonObject? = null
-         try {
-             data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
-         } catch (e: Exception) {
-             e.printStackTrace()
-         }
-         for (tag in data!!["nsfw_tags"].asJsonArray) {
-             list.add(tag.asString)
-         }
-         return list
-     }
+    fun getNSFWTags(): MutableList<String> {
+        val list = mutableListOf<String>()
+        val req = Request.Builder().url("$url/tags").header("Authorization", "Bearer $token").build()
+        var data: JsonObject? = null
+        try {
+            data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        for (tag in data!!["nsfw_tags"].asJsonArray) {
+            list.add(tag.asString)
+        }
+        return list
+    }
 
     fun searchTag(search: String): Tag {
         val req = Request.Builder().url("$url/tags/$search").header("Authorization", "Bearer $token").build()
@@ -137,7 +137,8 @@ class ImageEndpoint(private val token: String) {
     }
 
     fun getRandomImageFromSubReddit(subReddit: String, removeNsfw: Boolean = false, span: String = "day"): RedditPost {
-        val req = Request.Builder().url("$url/rand-reddit/$subReddit?remove_nsfw=$removeNsfw&span=$span").header("Authorization", "Bearer $token").build()
+        val req = Request.Builder().url("$url/rand-reddit/$subReddit?remove_nsfw=$removeNsfw&span=$span")
+            .header("Authorization", "Bearer $token").build()
         var data: JsonObject? = null
         try {
             data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
