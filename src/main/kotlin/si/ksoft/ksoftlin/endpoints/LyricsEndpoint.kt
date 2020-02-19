@@ -5,22 +5,23 @@ import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import si.ksoft.ksoftlin.data.*
+import si.ksoft.ksoftlin.dsl.apiUrl
 
 class LyricsEndpoint(private val token: String) {
-    private val url = "https://api.ksoft.si/lyrics"
+    private val url = "$apiUrl/lyrics"
     private val client = OkHttpClient.Builder().build()
 
     fun getLyrics(songName: String, textOnly: Boolean = false, limit: Int = 10): MutableList<Song> {
         val songs = mutableListOf<Song>()
         val req = Request.Builder().url("$url/search?q=$songName&text_only=$textOnly&limit=$limit")
             .header("Authorization", "Bearer $token").build()
-        var data: JsonObject? = null
+        lateinit var data: JsonObject
         try {
             data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        for (s in data!!["data"].asJsonArray) {
+        for (s in data["data"].asJsonArray) {
             val song = Song(
                 s.asJsonObject["artist"].asString,
                 s.asJsonObject["artist_id"].asInt,
@@ -46,7 +47,7 @@ class LyricsEndpoint(private val token: String) {
 
     fun getArtistByID(id: Int): Artist {
         val req = Request.Builder().url("$url/artist/$id").header("Authorization", "Bearer $token").build()
-        var data: JsonObject? = null
+        lateinit var data: JsonObject
         try {
             data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
         } catch (e: Exception) {
@@ -54,7 +55,7 @@ class LyricsEndpoint(private val token: String) {
         }
         val albums = mutableListOf<Artist>()
         val tracks = mutableListOf<Track>()
-        for (t in data!!["tracks"].asJsonArray) {
+        for (t in data["tracks"].asJsonArray) {
             tracks.add(
                 Track(
                     t.asJsonObject["id"].asInt,
@@ -82,7 +83,7 @@ class LyricsEndpoint(private val token: String) {
 
     fun getAlbumByID(id: Int): Album {
         val req = Request.Builder().url("$url/album/$id").header("Authorization", "Bearer $token").build()
-        var data: JsonObject? = null
+        lateinit var data: JsonObject
         try {
             data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
         } catch (e: Exception) {
@@ -90,7 +91,7 @@ class LyricsEndpoint(private val token: String) {
         }
         val artists = mutableListOf<Artist>()
         val tracks = mutableListOf<Track>()
-        for (a in data!!["artist"].asJsonArray) {
+        for (a in data["artist"].asJsonArray) {
             artists.add(
                 Artist(
                     a.asJsonObject["id"].asInt,
@@ -117,14 +118,14 @@ class LyricsEndpoint(private val token: String) {
 
     fun getTrackByID(id: Int): RetrievedTrack {
         val req = Request.Builder().url("$url/lyrics/track/$id").header("Authorization", "Bearer $token").build()
-        var data: JsonObject? = null
+        lateinit var data: JsonObject
         try {
             data = JsonParser.parseString(client.newCall(req).execute().body!!.string()).asJsonObject
         } catch (e: Exception) {
             e.printStackTrace()
         }
         val albums = mutableListOf<Artist>()
-        for (a in data!!["albums"].asJsonArray) {
+        for (a in data["albums"].asJsonArray) {
             albums.add(
                 Artist(
                     a.asJsonObject["id"].asInt,
