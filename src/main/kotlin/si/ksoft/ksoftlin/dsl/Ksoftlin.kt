@@ -4,7 +4,7 @@ import si.ksoft.ksoftlin.KsoftApi
 import si.ksoft.ksoftlin.exceptions.AuthenticationErrorException
 
 class Settings {
-    var token: String = ""
+    lateinit var token: String
 }
 
 fun login(settings: Settings.() -> Unit): KsoftApi {
