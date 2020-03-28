@@ -8,8 +8,8 @@ data class Location(val address: String,
                     @SerializedName("lon")
                     val longitude: Double,
                     @SerializedName("bounding_box")
-                    val boundingBox: MutableList<String>,
-                    val type: MutableList<String>,
+                    val boundingBox: List<String>,
+                    val type: List<String>,
                     val map: String)
 
 data class LocationResponse(val error: Boolean, val code: Int, val message: String? = null, val data: Location)

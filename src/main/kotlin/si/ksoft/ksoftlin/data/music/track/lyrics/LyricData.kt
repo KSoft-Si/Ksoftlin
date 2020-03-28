@@ -2,7 +2,7 @@ package si.ksoft.ksoftlin.data.music.track.lyrics
 
 import com.google.gson.annotations.SerializedName
 
-data class SongResponse(val data: MutableList<Song>)
+data class SongResponse(val data: List<Song>)
 
 data class Song(val artist: String,
                 val artistId: Int,

@@ -24,7 +24,7 @@ data class Weather(
     val sunsetTime: String,
     @SerializedName("icon_url")
     val iconUrl: String,
-    val alerts: MutableList<Alert>,
+    val alerts: List<Alert>,
     val units: String,
     val location: Location
 )
@@ -39,7 +39,7 @@ data class Location(
 
 data class Alert(
     val title: String,
-    val regions: MutableList<String>,
+    val regions: List<String>,
     val severity: String,
     val time: String,
     val expires: String,

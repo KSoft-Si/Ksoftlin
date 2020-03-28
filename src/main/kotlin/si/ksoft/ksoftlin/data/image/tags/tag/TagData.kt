@@ -4,4 +4,4 @@ import com.google.gson.annotations.SerializedName
 
 data class Tag(val name: String, @SerializedName("nsfw") val isNsfw: Boolean)
 
-data class TagResponse(val models: MutableList<Tag>)
+data class TagResponse(val models: List<Tag>)
