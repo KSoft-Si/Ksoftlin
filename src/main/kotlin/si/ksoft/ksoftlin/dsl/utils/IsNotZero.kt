@@ -1,5 +1,7 @@
 package si.ksoft.ksoftlin.dsl.utils
 
-fun Long.isNotZero(): Boolean = this != 0L
+fun Long.isNotZero() = this != 0L
 
-fun Int.isNotZero(): Boolean = this != 0
+fun Double.isNotZero() = this != 0.0
+
+fun Int.isNotZero() = this != 0
