@@ -17,6 +17,6 @@ object ClientConfig {
     var client: HttpClientEngineFactory<*> = Apache
 }
 
-internal fun Ksoft(client: HttpClientEngineFactory<*> = Apache, builder: KsoftlinBuilder.() -> Unit) = KsoftEndpoints(
+fun Ksoft(client: HttpClientEngineFactory<*> = Apache, builder: KsoftlinBuilder.() -> Unit) = KsoftEndpoints(
     "Bearer ${KsoftlinBuilder().apply(builder).cfg.token}"
 ).apply { ClientConfig.client = client }
