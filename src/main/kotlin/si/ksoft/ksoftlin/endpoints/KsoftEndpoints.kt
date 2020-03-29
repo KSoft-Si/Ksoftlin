@@ -21,11 +21,11 @@ import si.ksoft.ksoftlin.dsl.utils.isNotZero
 import si.ksoft.ksoftlin.endpoints.utils.enums.ReportType
 
 class KsoftEndpoints(token: String) {
-    internal val lyrics = LyricsEndpoint(token)
-    internal val image = ImageEndpoint(token)
-    internal val ban = BanEndpoint(token)
-    internal val dbl = DiscordBotListEndpoint(token)
-    internal val kumo = KumoEndpoint(token)
+    val lyrics = LyricsEndpoint(token)
+    val image = ImageEndpoint(token)
+    val ban = BanEndpoint(token)
+    val dbl = DiscordBotListEndpoint(token)
+    val kumo = KumoEndpoint(token)
 }
 
 internal class LyricsEndpoint(private val token: String) {
