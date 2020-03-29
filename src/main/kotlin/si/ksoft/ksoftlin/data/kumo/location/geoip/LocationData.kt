@@ -19,13 +19,16 @@ data class Location(
     val countryName: String,
     @SerializedName("dma_code")
     val dmaCode: String,
+    @SerializedName("is_in_european_union")
+    val isInEuropeanUnion: Boolean,
     val latitude: Double,
     val longitude: Double,
     @SerializedName("postal_code")
     val postalCode: String,
     val region: String,
+    @SerializedName("time_zone")
     val timeZone: String,
     val apis: LocationLinks
 )
 
-data class LocationResponse(val error: Boolean, val code: Int, @SerializedName("data") val location: Location, val message: String? = null)
+data class GeoIPLocationResponse(val error: Boolean, val code: Int, @SerializedName("data") val location: Location, val message: String? = null)

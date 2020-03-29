@@ -12,13 +12,16 @@ import si.ksoft.ksoftlin.data.image.tags.tag.search.SearchTagResponse
 import si.ksoft.ksoftlin.data.image.wikihow.WikiHow
 import si.ksoft.ksoftlin.data.kumo.currency.Currency
 import si.ksoft.ksoftlin.data.kumo.location.LocationResponse
-import si.ksoft.ksoftlin.data.kumo.weather.easy.WeatherResponse
+import si.ksoft.ksoftlin.data.kumo.location.geoip.GeoIPLocationResponse
+import si.ksoft.ksoftlin.data.kumo.weather.easy.WeatherCurrentlyResponse
+import si.ksoft.ksoftlin.data.kumo.weather.easy.WeatherDailyResponse
+import si.ksoft.ksoftlin.data.kumo.weather.easy.WeatherHourlyResponse
+import si.ksoft.ksoftlin.data.kumo.weather.easy.WeatherMinutelyResponse
 import si.ksoft.ksoftlin.data.music.artist.Artist
 import si.ksoft.ksoftlin.data.music.track.Track
 import si.ksoft.ksoftlin.data.music.track.lyrics.SongResponse
 import si.ksoft.ksoftlin.dsl.utils.isNotNull
 import si.ksoft.ksoftlin.dsl.utils.isNotZero
-import si.ksoft.ksoftlin.endpoints.utils.enums.ReportType
 
 class KsoftEndpoints(token: String) {
     val lyrics = LyricsEndpoint(token)
@@ -28,7 +31,7 @@ class KsoftEndpoints(token: String) {
     val kumo = KumoEndpoint(token)
 }
 
-internal class LyricsEndpoint(private val token: String) {
+class LyricsEndpoint(private val token: String) {
     suspend fun getLyrics(song: String, textOnly: Boolean = false) = client.get<SongResponse>("$api/lyrics/search") {
         header("Authorization", token)
         parameter("q", song)
@@ -44,7 +47,7 @@ internal class LyricsEndpoint(private val token: String) {
     }
 }
 
-internal class ImageEndpoint(private val token: String) {
+class ImageEndpoint(private val token: String) {
     suspend fun getRandomImage(tag: String, isNsfw: Boolean = false) = client.get<Image>("$api/images/random-image") {
         parameter("tag", tag)
         parameter("nsfw", isNsfw)
@@ -82,7 +85,7 @@ internal class ImageEndpoint(private val token: String) {
         }
 }
 
-internal class BanEndpoint(private val token: String) {
+class BanEndpoint(private val token: String) {
     suspend fun banUser(
         id: Long,
         reason: String,
@@ -114,7 +117,7 @@ internal class BanEndpoint(private val token: String) {
     }
 }
 
-internal class DiscordBotListEndpoint(private val token: String) {
+class DiscordBotListEndpoint(private val token: String) {
     suspend fun isBotVotedByUser(botId: Long, userId: Long) = client.get<VoteResponse>("$api/webhook/dbl/check") {
         header("Authorization", token)
         parameter("bot", botId)
@@ -127,7 +130,7 @@ internal class DiscordBotListEndpoint(private val token: String) {
     }
 }
 
-internal class KumoEndpoint(private val token: String) {
+class KumoEndpoint(private val token: String) {
     suspend fun getLocation(
         location: String,
         isFast: Boolean = true,
@@ -143,13 +146,12 @@ internal class KumoEndpoint(private val token: String) {
         parameter("includeMap", includeMap)
     }
 
-    suspend fun getWeather(
-        reportType: ReportType,
+    suspend fun getWeatherCurrently(
         location: String,
         units: String = "auto",
         lang: String = "en",
         icons: String = "original"
-    ) = client.get<WeatherResponse>("$api/kumo/weather/${reportType.reportType}") {
+    ) = client.get<WeatherCurrentlyResponse>("$api/kumo/weather/currently") {
         header("Authorization", token)
         parameter("q", location)
         parameter("units", units)
@@ -157,14 +159,91 @@ internal class KumoEndpoint(private val token: String) {
         parameter("icons", icons)
     }
 
-    suspend fun getWeatherWithLongitudeAndLatitude(
-        reportType: ReportType,
+    suspend fun getWeatherMinutely(
+        location: String,
+        units: String = "auto",
+        lang: String = "en",
+        icons: String = "original"
+    ) = client.get<WeatherMinutelyResponse>("$api/kumo/weather/minutely") {
+        header("Authorization", token)
+        parameter("q", location)
+        parameter("units", units)
+        parameter("lang", lang.toLowerCase())
+        parameter("icons", icons)
+    }
+
+    suspend fun getWeatherHourly(
+        location: String,
+        units: String = "auto",
+        lang: String = "en",
+        icons: String = "original"
+    ) = client.get<WeatherHourlyResponse>("$api/kumo/weather/hourly") {
+        header("Authorization", token)
+        parameter("q", location)
+        parameter("units", units)
+        parameter("lang", lang.toLowerCase())
+        parameter("icons", icons)
+    }
+
+    suspend fun getWeatherDaily(
+        location: String,
+        units: String = "auto",
+        lang: String = "en",
+        icons: String = "original"
+    ) = client.get<WeatherDailyResponse>("$api/kumo/weather/daily") {
+        header("Authorization", token)
+        parameter("q", location)
+        parameter("units", units)
+        parameter("lang", lang.toLowerCase())
+        parameter("icons", icons)
+    }
+
+    suspend fun getWeatherWithLongitudeAndLatitudeCurrently(
         longitude: Double,
         latitude: Double,
         units: String = "auto",
         lang: String = "en",
         icons: String = "original"
-    ) = client.get<WeatherResponse>("$api/kumo/weather/$latitude,$longitude/${reportType.reportType}") {
+    ) = client.get<WeatherCurrentlyResponse>("$api/kumo/weather/$latitude,$longitude/currently") {
+        header("Authorization", token)
+        parameter("units", units)
+        parameter("lang", lang.toLowerCase())
+        parameter("icons", icons)
+    }
+
+    suspend fun getWeatherWithLongitudeAndLatitudeMinutely(
+        longitude: Double,
+        latitude: Double,
+        units: String = "auto",
+        lang: String = "en",
+        icons: String = "original"
+    ) = client.get<WeatherMinutelyResponse>("$api/kumo/weather/$latitude,$longitude/minutely}") {
+        header("Authorization", token)
+        parameter("units", units)
+        parameter("lang", lang.toLowerCase())
+        parameter("icons", icons)
+    }
+
+    suspend fun getWeatherWithLongitudeAndLatitudeHourly(
+        longitude: Double,
+        latitude: Double,
+        units: String = "auto",
+        lang: String = "en",
+        icons: String = "original"
+    ) = client.get<WeatherHourlyResponse>("$api/kumo/weather/$latitude,$longitude/hourly") {
+        header("Authorization", token)
+        parameter("units", units)
+        parameter("lang", lang.toLowerCase())
+        parameter("icons", icons)
+    }
+
+    suspend fun getWeatherWithLongitudeAndLatitudeDaily(
+        longitude: Double,
+        latitude: Double,
+        units: String = "auto",
+        lang: String = "en",
+        icons: String = "original"
+    ) = client.get<WeatherDailyResponse>("$api/kumo/weather/$latitude,$longitude/daily") {
         header("Authorization", token)
         parameter("units", units)
         parameter("lang", lang.toLowerCase())
@@ -172,7 +251,7 @@ internal class KumoEndpoint(private val token: String) {
     }
 
 
-    suspend fun getLocationDataFromIP(ip: String) = client.get<LocationResponse>("$api/kumo/geoip") {
+    suspend fun getLocationDataFromIP(ip: String) = client.get<GeoIPLocationResponse>("$api/kumo/geoip") {
         header("Authorization", token)
         parameter("ip", ip)
     }
