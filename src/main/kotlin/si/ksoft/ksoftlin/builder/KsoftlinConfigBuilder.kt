@@ -1,6 +1,6 @@
 package si.ksoft.ksoftlin.builder
 
-internal data class KsoftlinConfig(val token: String)
+internal data class KsoftlinConfig(var token: String? = null)
 
 class KsoftlinConfigBuilder {
     lateinit var token: String
