@@ -1,8 +1,6 @@
 package si.ksoft.ksoftlin.endpoints
 
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.client.request.parameter
+import io.ktor.client.request.*
 import si.ksoft.ksoftlin.builder.client
 import si.ksoft.ksoftlin.data.image.ImageResponse
 import si.ksoft.ksoftlin.data.image.reddit.RedditPost
@@ -19,11 +17,12 @@ import si.ksoft.ksoftlin.util.api
  */
 
 class ImageEndpoint(private val token: String) {
-    suspend fun getRandomImage(tag: String, isNsfw: Boolean = false) = client.get<ImageResponse>("$api/images/random-image") {
-        parameter("tag", tag)
-        parameter("nsfw", isNsfw)
-        header("Authorization", token)
-    }
+    suspend fun getRandomImage(tag: String, isNsfw: Boolean = false) =
+        client.get<ImageResponse>("$api/images/random-image") {
+            parameter("tag", tag)
+            parameter("nsfw", isNsfw)
+            header("Authorization", token)
+        }
 
     suspend fun getTags() = client.get<TagResponse>("$api/images/tags") { header("Authorization", token) }
 
