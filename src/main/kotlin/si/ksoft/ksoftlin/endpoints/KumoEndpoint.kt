@@ -1,8 +1,6 @@
 package si.ksoft.ksoftlin.endpoints
 
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.client.request.parameter
+import io.ktor.client.request.*
 import si.ksoft.ksoftlin.builder.client
 import si.ksoft.ksoftlin.data.kumo.currency.CurrencyResponse
 import si.ksoft.ksoftlin.data.kumo.location.LocationResponse

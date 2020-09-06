@@ -1,8 +1,6 @@
 package si.ksoft.ksoftlin.endpoints
 
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.client.request.parameter
+import io.ktor.client.request.*
 import si.ksoft.ksoftlin.builder.client
 import si.ksoft.ksoftlin.data.music.artist.Artist
 import si.ksoft.ksoftlin.data.music.track.Track

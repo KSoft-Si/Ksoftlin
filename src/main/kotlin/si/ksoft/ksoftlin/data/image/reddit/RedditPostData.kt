@@ -18,5 +18,6 @@ data class RedditPost(
     val createdAt: Long,
     @SerializedName("nsfw")
     val isNsfw: Boolean,
-    val author: String
+    val author: String,
+    val awards: Int
 )

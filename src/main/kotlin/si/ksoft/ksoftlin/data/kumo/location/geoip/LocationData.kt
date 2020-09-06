@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class LocationLinks(
     val weather: String,
-    val gis: String, @SerializedName("openstreetmap") val openStreetMap: String, @SerializedName("googlemaps") val googleMaps: String
+    val gis: String,
+    @SerializedName("openstreetmap") val openStreetMap: String,
+    @SerializedName("googlemaps") val googleMaps: String
 )
 
 data class Location(
@@ -31,4 +33,9 @@ data class Location(
     val apis: LocationLinks
 )
 
-data class GeoIPLocationResponse(val error: Boolean, val code: Int, @SerializedName("data") val location: Location, val message: String? = null)
+data class GeoIPLocationResponse(
+    val error: Boolean,
+    val code: Int,
+    @SerializedName("data") val location: Location,
+    val message: String? = null
+)
