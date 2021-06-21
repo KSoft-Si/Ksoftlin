@@ -1,5 +1,5 @@
 # Ksoftlin
-A Kotlin KSoft API Wrapper. 
+A Kotlin KSoft API Wrapper powered by kotlinx.coroutines and Ktor.
 
 Ksoftlin wraps [Ksoft](https://api.ksoft.si) endpoints. You can find the documents [here](https://kotlin.docs.ksoft.si)
 
