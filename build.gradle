@@ -1,20 +1,19 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
 }
 
 group 'si.ksoft'
-version '1.0-SNAPSHOT'
+version '2.1.1'
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation "io.ktor:ktor-client-gson:1.4.0"
-    implementation "io.ktor:ktor-client-core:1.4.0"
-    implementation "io.ktor:ktor-client-apache:1.4.0"
+    implementation "io.ktor:ktor-client-gson:1.6.0"
+    implementation "io.ktor:ktor-client-core:1.6.0"
+    implementation "io.ktor:ktor-client-apache:1.6.0"
 }
 
 compileKotlin {
