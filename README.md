@@ -1,7 +1,7 @@
 # Ksoftlin
-A Kotlin Ksoft API Wrapper. 
+A Kotlin KSoft API Wrapper. 
 
-KSoftlin wraps [Ksoft](https://api.ksoft.si) endpoints. You can locate the documents [here](https://kotlin.docs.ksoft.si)
+Ksoftlin wraps [Ksoft](https://api.ksoft.si) endpoints. You can find the documents [here](https://kotlin.docs.ksoft.si)
 
 # Gradle
 
